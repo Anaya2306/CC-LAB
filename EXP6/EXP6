@@ -1,0 +1,75 @@
+%{
+#include <stdio.h>
+#include <stdlib.h>
+
+
+void convert_to_hex(int num) {
+    int temp = num;
+    int remainders[50];
+    int count = 0;
+
+    // Table Header
+    printf("\n%-15s | %-5s | %-5s | %-7s\n", "Division by 16", "Q", "R", "R(Hex)");
+    printf("-------------------------------\n");
+
+    // Special case for 0
+    if (temp == 0) {
+        printf("%-16s| 0    | 0    | 0\n", "0/16=0");
+        printf("\nFinal Hexadecimal Value = 0 (16)\n");
+        return;
+    }
+
+    // Repeated Division Logic
+    while (temp > 0) {
+        int q = temp / 16;
+        int r = temp % 16;
+        remainders[count++] = r;
+
+        // Print table row
+        char div_str[30];
+        sprintf(div_str, "%d/16", temp);
+
+        if (r >= 10) {
+            printf("%-15s| %-5d | %-5d | %c\n", div_str, q, r, 'A' + (r - 10));
+        } else {
+            printf("%-15s| %-5d | %-5d | %d\n", div_str, q, r, r);
+        }
+
+        temp = q;
+    }
+
+    // Print Final Result (Reversing the remainders)
+    printf("\nFinal Hexadecimal Value = ");
+    for (int i = count - 1; i >= 0; i--) {
+
+        if (remainders[i] >= 10) {
+            printf("%c", 'A' + (remainders[i] - 10));
+        } else {
+            printf("%d", remainders[i]);
+        }
+    }
+    printf("_(16)\n");
+}
+%}
+
+%%
+
+[0-9]+ {
+    int num = atoi(yytext);
+    convert_to_hex(num);
+}
+
+\n    ; /* Ignore newlines */
+.     ; /* Ignore other characters */
+
+%%
+
+int main() {
+    printf("Enter a decimal number: ");
+    yylex();
+    return 0;
+}
+
+int yywrap() {
+    return 1;
+}
