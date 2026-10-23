@@ -1,0 +1,39 @@
+# Experiment 04: Introduction to YACC Tool and Format
+
+## Overview
+This repository contains the theory and structural guidelines for **Experiment 04: Introduction to YACC tool, and format to write the YACC code** as part of the Compiler Construction Lab[cite: 2, 4].
+
+YACC (**Yet Another Compiler-Compiler**) is a parser generator used to build syntax analyzers from Context-Free Grammars (CFG). It works alongside **LEX** to perform syntactic and semantic verification on tokenized input.
+
+---
+
+## Key Features
+* Automatically generates LALR/CFG-based parsers.
+* Detects and handles syntax errors.
+* Integrates seamlessly with LEX for token feeding.
+* Outputs standard C code (`y.tab.c`) for compilation.
+
+---
+
+## Program Structure
+A standard YACC program (`.y`) is divided into three sections using `%%` delimiters:
+
+```yacc
+%{
+    /* Definitions & Declarations (Headers, global variables, prototypes) */
+%}
+    /* Token definitions (%token), precedence, and associativity */
+%%
+    /* Production Rules & Semantic Actions */
+%%
+    /* User Subroutines / C Auxiliary Code (main, yyerror, helpers) */
+```
+
+### Section Breakdown
+1. **Definition Section:** Contains C header inclusions, token definitions (`%token`), and global variables.
+2. **Rules Section:** Defines context-free grammar production rules alongside semantic action blocks (`{ ... }`).
+3. **User Subroutines Section:** Contains required functions such as `main()`, error handling functions (`yyerror()`), and helper routines[cite: 4].
+
+---
+
+## Build & Execution Workflow
