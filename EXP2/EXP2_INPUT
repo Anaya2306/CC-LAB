@@ -1,0 +1,14 @@
+// This is a single line comment
+int main() {
+    /* This is a 
+       multi-line comment */
+    float total_sum = 0;
+    int i = 10;
+    
+    if (i > 5) {
+        return 1;
+    }
+    
+    char choice;
+    return 0;
+}
